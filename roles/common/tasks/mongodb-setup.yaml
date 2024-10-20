@@ -26,6 +26,6 @@
 - name: Load {{component}} data
   ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/user.js
   when: 
-    - component == "catalogue" 
+    - component == "user" 
     - product_count.stdout == "0"
   ignore_errors: yes
