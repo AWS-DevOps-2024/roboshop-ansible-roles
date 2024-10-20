@@ -1,0 +1,10 @@
+- name: copy the catalogue servcie 
+  ansible.builtin.copy:
+    src: catalogue.service
+    dest: /etc/systemd/system/catalogue.service
+
+- name: Enable and start the catalogue
+  ansible.builtin.service:
+    name: catalogue
+    enabled: yes
+    state: started
