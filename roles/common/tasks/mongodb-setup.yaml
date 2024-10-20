@@ -16,14 +16,14 @@
 #   ansible.builtin.debug:
 #     msg: "Procuct Count is {{product_count}}"
 
-- name: Load {{component}} data
+- name: Load catalogue data
   ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/catalogue.js
   when: 
     - component == "catalogue" 
     - product_count.stdout == "0"
   ignore_errors: yes
 
-- name: Load {{component}} data
+- name: Load user data
   ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/user.js
   when: 
     - component == "user" 
