@@ -1,0 +1,4 @@
+- name: App Setup
+  ansible.builtin.import_role:
+    name: common # Define the role
+    tasks_from: app-setup # define the task you want to call
