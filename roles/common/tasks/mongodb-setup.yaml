@@ -9,7 +9,7 @@
     state: present 
 
 - name: get {{component}} product count
-  ansible.builtin.command: mongo --host mongodb.learndevops.space --quiet --eval 'db = db.getSiblingDB("{{component}}"); db.products.count()'
+  ansible.builtin.command: mongo --host {{MONGODB_HOST}} --quiet --eval 'db = db.getSiblingDB("{{component}}"); db.products.count()'
   register: product_count
 
 # - name: Print the Procuct count 
@@ -17,14 +17,14 @@
 #     msg: "Procuct Count is {{product_count}}"
 
 - name: Load catalogue data
-  ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/catalogue.js
+  ansible.builtin.command: mongo --host {{MONGODB_HOST}} < /app/schema/catalogue.js
   when: 
     - component == "catalogue" 
     - product_count.stdout == "0"
   ignore_errors: yes
 
 - name: Load user data
-  ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/user.js
+  ansible.builtin.command: mongo --host {{MONGODB_HOST}} < /app/schema/user.js
   when: 
     - component == "user" 
     - product_count.stdout == "0"
