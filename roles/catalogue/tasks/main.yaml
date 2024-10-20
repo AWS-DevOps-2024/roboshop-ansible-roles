@@ -7,3 +7,8 @@
   ansible.builtin.import_role:
     name: common # Define the role
     tasks_from: nodejs-setup # define the task you want to call
+
+- name: MongoDB Setup
+  ansible.builtin.import_role:
+    name: common # Define the role
+    tasks_from: mongodb-setup # define the task you want to call

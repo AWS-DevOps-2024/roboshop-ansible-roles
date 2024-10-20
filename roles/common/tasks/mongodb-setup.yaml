@@ -1,0 +1,29 @@
+- name: Copy mongodb repo
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: install mongodb client
+  ansible.builtin.package:
+    name: mongodb-org-shell
+    state: present 
+
+- name: get {{component}} product count
+  ansible.builtin.command: mongo --host mongodb.learndevops.space --quiet --eval 'db = db.getSiblingDB("{{component}}"); db.products.count()'
+  register: product_count
+
+# - name: Print the Procuct count 
+#   ansible.builtin.debug:
+#     msg: "Procuct Count is {{product_count}}"
+
+- name: Load {{component}} data
+  ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/catalogue.js
+  when: 
+    - component == "catalogue" 
+    - product_count.stdout == "0"
+
+- name: Load {{component}} data
+  ansible.builtin.command: mongo --host mongodb.learndevops.space < /app/schema/user.js
+  when: 
+    - component == "catalogue" 
+    - product_count.stdout == "0"
