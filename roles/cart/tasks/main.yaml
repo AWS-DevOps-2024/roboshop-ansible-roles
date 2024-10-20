@@ -1,0 +1,14 @@
+- name: App Setup
+  ansible.builtin.import_role:
+    name: common # Define the role
+    tasks_from: app-setup # define the task you want to call
+
+- name: NodeJS Setup
+  ansible.builtin.import_role:
+    name: common # Define the role
+    tasks_from: nodejs-setup # define the task you want to call
+
+- name: Systemd Setup and Restart {{component}}
+  ansible.builtin.import_role:
+    name: common # Define the role
+    tasks_from: systemd-setup # define the task you want to call
