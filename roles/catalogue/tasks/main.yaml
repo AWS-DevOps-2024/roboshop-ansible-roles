@@ -17,3 +17,8 @@
   ansible.builtin.import_role:
     name: common # Define the role
     tasks_from: systemd-setup # define the task you want to call
+
+- name: Deployment {{component}}
+  ansible.builtin.import_role:
+    name: common # Define the role
+    tasks_from: deployment # define the task you want to call
